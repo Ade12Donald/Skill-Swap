@@ -1,4 +1,5 @@
 import { ZodError } from "zod";
+import { AppError } from "../utils/errorHandling";
 
 export const errorMiddleware = (err, req, res, next) => {
   if (err instanceof ZodError) {
