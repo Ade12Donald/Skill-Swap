@@ -41,47 +41,51 @@ export const userSchema = z.object({
       "Password should contain at least 1 special character",
     ),
 
-  skillToLearn: z.array(
-    z.object({
-      title: z
-        .string()
-        .trim()
-        .toLowerCase()
-        .min(1, "Skill Name should contain at least 1 character")
-        .max(30, "Skill Name should not exceed 30 characters"),
-      level: z
-        .string()
-        .trim()
-        .toLowerCase()
-        .min(1, "Skill should contain at least 1 character")
-        .max(30, "Skill should not exceed 12 characters")
-        .pipe(
-          z.enum([...LEVELS].slice(1), {
-            error: "Level must be intermediate or expert",
-          }),
-        ),
-    }),
-  ),
+  skillToLearn: z
+    .array(
+      z.object({
+        title: z
+          .string()
+          .trim()
+          .toLowerCase()
+          .min(1, "Skill Name should contain at least 1 character")
+          .max(30, "Skill Name should not exceed 30 characters"),
+        level: z
+          .string()
+          .trim()
+          .toLowerCase()
+          .min(1, "Skill should contain at least 1 character")
+          .max(30, "Skill should not exceed 12 characters")
+          .pipe(
+            z.enum([...LEVELS].slice(1), {
+              error: "Level must be intermediate or expert",
+            }),
+          ),
+      }),
+    )
+    .min(1, "skill To Learn is required"),
 
-  skillToTeach: z.array(
-    z.object({
-      title: z
-        .string()
-        .trim()
-        .toLowerCase()
-        .min(1, "Skill Name should contain at least 1 character")
-        .max(30, "Skill Name should not exceed 30 characters"),
-      level: z
-        .string()
-        .trim()
-        .toLowerCase()
-        .min(1, "Skill should contain at least 1 character")
-        .max(30, "Skill should not exceed 12 characters")
-        .pipe(
-          z.enum(LEVELS, {
-            error: "Level must be beginner, intermediate or expert",
-          }),
-        ),
-    }),
-  ),
+  skillToTeach: z
+    .array(
+      z.object({
+        title: z
+          .string()
+          .trim()
+          .toLowerCase()
+          .min(1, "Skill Name should contain at least 1 character")
+          .max(30, "Skill Name should not exceed 30 characters"),
+        level: z
+          .string()
+          .trim()
+          .toLowerCase()
+          .min(1, "Skill should contain at least 1 character")
+          .max(30, "Skill should not exceed 12 characters")
+          .pipe(
+            z.enum(LEVELS, {
+              error: "Level must be beginner, intermediate or expert",
+            }),
+          ),
+      }),
+    )
+    .min(1, "skill To Teach is required"),
 });
