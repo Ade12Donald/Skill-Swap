@@ -29,4 +29,10 @@ mongoose
     logger.info("MONGODB CONNECTED SUCCESSFULLY");
     app.listen(PORT, () => logger.info(`SERVER IS RUNNING ON PORT ${PORT}`));
   })
-  .catch((error) => logger.info(error));
+  .catch((error) => {
+    logger.error("MongoDB connection failed", {
+      error: err.message,
+      stack: err.stack,
+    });
+    process.exit(1);
+  });
