@@ -18,5 +18,7 @@ export const errorMiddleware = (err, req, res, next) => {
       field: Object.keys(err.keyValue)[0],
       message: `${Object.keys(err.keyValue)[0]} already exist`,
     });
+  } else {
+    res.status(500).json({ ERROR: "Internal Server Error" });
   }
 };
