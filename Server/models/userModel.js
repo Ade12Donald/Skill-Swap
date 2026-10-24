@@ -37,7 +37,7 @@ const userSchema = new mongoose.Schema({
         lowercase: true,
         required: [true, "{PATH} is required"],
       },
-      LEVEL: {
+      level: {
         type: String,
         enum: {
           values: ["intermediate", "expert"],
@@ -57,7 +57,7 @@ const userSchema = new mongoose.Schema({
         lowercase: true,
         required: [true, "{PATH} is required"],
       },
-      LEVEL: {
+      level: {
         type: String,
         enum: {
           values: ["beginner", "intermediate", "expert"],
