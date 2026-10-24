@@ -1,4 +1,5 @@
 import userModel from "../models/userModel.js";
+import logger from "../utils/logger.js";
 
 export const createUser = async (req, res, next) => {
   try {
@@ -10,6 +11,7 @@ export const createUser = async (req, res, next) => {
       data: user,
     });
   } catch (error) {
+    logger.error(error);
     next(error);
   }
 };
