@@ -7,12 +7,23 @@ export const createUser = async (req, res, next) => {
     const { skillToLearn, skillToTeach } = req.body;
 
     const teachTitle = skillToTeach.map((values) => values.title);
+    const learnTitle = skillToLearn.map((values) => values.title);
+
+    const dummyTeach = [...new Set(teachTitle)];
+    const dummyLearn = [...new Set(learnTitle)];
 
     for (const elements of skillToLearn) {
       if (teachTitle.includes(elements.title)) {
         throw new AppError("You can't want to learn what you can teach", 400);
       }
     }
+
+    if (teachTitle.size != dummyTeach.length)
+      throw new AppError("You can't have duplicate skill", 400);
+
+    if (learnTitle.size != dummyLearn.length)
+      throw new AppError("You can't have duplicate skill", 400);
+
     const user = await userModel.create(req.body);
 
     logger.info("User registered successfully", { userId: String(user._id) });
