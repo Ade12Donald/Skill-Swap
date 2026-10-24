@@ -39,18 +39,23 @@ export const createUser = async (req, res, next) => {
 };
 
 export const loginUser = async (req, res) => {
-  const { email, password } = req.body;
+  try {
+    const { email, password } = req.body;
 
-  const userExist = await userModel.findOne({ email });
+    const userExist = await userModel.findOne({ email });
 
-  if (!userExist) throw new AppError("User not Found", 404);
+    if (!userExist) throw new AppError("User not Found", 404);
 
-  if (!bcrypt.compare(password, userExist.password))
-    throw new AppError("Password Incorrect", 400);
+    if (!bcrypt.compare(password, userExist.password))
+      throw new AppError("Password Incorrect", 400);
 
-  res.status(200).json({
-    status: "successful",
-    message: "Welcome back",
-    data: userExist,
-  });
+    res.status(200).json({
+      status: "successful",
+      message: "Welcome back",
+      data: userExist,
+    });
+  } catch (error) {
+    logger.error(error);
+    next(error);
+  }
 };
