@@ -7,6 +7,6 @@ import loginSchema from "../schema/loginSchema.js";
 const route = Router();
 
 route.post("/create", validate(userSchema), createUser);
-route.post("/login", validate(loginSchema), loginUser);
+route.get("/login", validate(loginSchema), loginUser);
 
 export default route;
