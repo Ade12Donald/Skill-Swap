@@ -141,3 +141,20 @@ export const updateUser = async (req, res) => {
     next(error);
   }
 };
+
+export const deleteUser = async (req, re) => {
+  try {
+    const { id } = req.user;
+    const user = await userModel.findByIdAndDelete(id);
+
+    if (!user) throw new AppError("User Not Found", 404);
+
+    res.status(200).json({
+      status: "successful",
+      data: user,
+    });
+  } catch (error) {
+    logger.error(error);
+    next(error);
+  }
+};
