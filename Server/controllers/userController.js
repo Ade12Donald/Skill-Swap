@@ -1,3 +1,4 @@
+import bcrypt from "bcrypt";
 import userModel from "../models/userModel.js";
 import { AppError } from "../utils/errorHandling.js";
 import logger from "../utils/logger.js";
@@ -35,4 +36,21 @@ export const createUser = async (req, res, next) => {
     logger.error(error);
     next(error);
   }
+};
+
+export const loginUser = async (req, res) => {
+  const { email, password } = req.body;
+
+  const userExist = await userModel.findOne({ email });
+
+  if (!userExist) throw new AppError("User not Found", 404);
+
+  if (!bcrypt.compare(password, userExist.password))
+    throw new AppError("Password Incorrect", 400);
+
+  res.status(200).json({
+    status: "successful",
+    message: "Welcome back",
+    data: userExist,
+  });
 };
