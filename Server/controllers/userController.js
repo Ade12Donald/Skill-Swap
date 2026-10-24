@@ -142,7 +142,7 @@ export const updateUser = async (req, res) => {
   }
 };
 
-export const deleteUser = async (req, re) => {
+export const deleteUser = async (req, res) => {
   try {
     const { id } = req.user;
     const user = await userModel.findByIdAndDelete(id);
