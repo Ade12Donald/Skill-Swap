@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   createUser,
+  deleteUser,
   getUser,
   loginUser,
   updateUser,
@@ -15,5 +16,6 @@ route.post("/create", validate(userSchema), createUser);
 route.get("/login", validate(loginSchema), loginUser);
 route.get("/get", getUser);
 route.patch("/update", validate(userSchema.partial()), updateUser);
+route.delete("delete", deleteUser);
 
 export default route;
