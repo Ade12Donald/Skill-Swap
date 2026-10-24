@@ -59,3 +59,21 @@ export const loginUser = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getUser = async (req, res) => {
+  try {
+    const { id } = req.user;
+
+    const user = await userModel.findById(id);
+
+    if (!user) throw new AppError("User not Found", 404);
+
+    res.status(200).json({
+      status: "successful",
+      data: user,
+    });
+  } catch (error) {
+    logger.error(error);
+    next(error);
+  }
+};
