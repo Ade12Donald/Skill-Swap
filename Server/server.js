@@ -25,6 +25,10 @@ app.use(
 );
 app.use("/user", userRoute);
 
+app.use((req, res) => {
+  res.status(404).json({ ERROR: "PAGE NOT FOUND" });
+});
+
 app.use(errorMiddleware);
 
 //CONNECTION
