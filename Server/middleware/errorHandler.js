@@ -10,7 +10,7 @@ export const errorMiddleware = (err, req, res, next) => {
       })),
     );
   } else if (err instanceof AppError) {
-    return res.status(statusCode).json({
+    return res.status(err.statusCode).json({
       ERROR: err.message,
     });
   } else if (err.code === 11000) {
