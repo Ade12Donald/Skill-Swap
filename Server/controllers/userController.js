@@ -19,10 +19,10 @@ export const createUser = async (req, res, next) => {
       }
     }
 
-    if (teachTitle.size != dummyTeach.length)
+    if (teachTitle.length !== dummyTeach.length)
       throw new AppError("You can't have duplicate skill", 400);
 
-    if (learnTitle.size != dummyLearn.length)
+    if (learnTitle.length !== dummyLearn.length)
       throw new AppError("You can't have duplicate skill", 400);
 
     const user = await userModel.create(req.body);
