@@ -15,7 +15,8 @@ export const userSchema = z.object({
     .min(2, "Last Name should have at least 2 characters")
     .max(25, "Last Name should have at most 25 characters"),
 
-  email: z.string
+  email: z
+    .string()
     .trim()
     .toLowerCase()
     .min(2, "Email should contain at least 2 characters")
