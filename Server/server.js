@@ -6,6 +6,7 @@ import "dotenv/config";
 
 //FILES IMPORT
 import logger from "./utils/logger.js";
+import userRoute from "./routers/userRoute.js";
 
 //CONFIGURATION
 const app = express();
@@ -21,6 +22,8 @@ app.use(
     stream: { write: (msg) => logger.info(msg.trim()) },
   }),
 );
+app.use("/user", userRoute);
+
 
 //CONNECTION
 mongoose
