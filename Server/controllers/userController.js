@@ -38,7 +38,7 @@ export const createUser = async (req, res, next) => {
   }
 };
 
-export const loginUser = async (req, res) => {
+export const loginUser = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
