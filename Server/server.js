@@ -7,6 +7,7 @@ import "dotenv/config";
 //FILES IMPORT
 import logger from "./utils/logger.js";
 import userRoute from "./routers/userRoute.js";
+import { errorMiddleware } from "./middleware/errorHandler.js";
 
 //CONFIGURATION
 const app = express();
@@ -24,6 +25,7 @@ app.use(
 );
 app.use("/user", userRoute);
 
+app.use(errorMiddleware);
 
 //CONNECTION
 mongoose
