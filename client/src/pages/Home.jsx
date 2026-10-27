@@ -7,7 +7,7 @@ import HomeCard from "../components/HomeCard";
 const Home = () => {
   return (
     <div>
-      <div className=" flex justify-center h-[50vh] flex-col max-w-120 m-auto">
+      <div className=" flex justify-center h-auto mt-20 mb-20 flex-col max-w-120 m-auto">
         <h1 className=" text-center font-medium font-sans text-4xl tracking-tight">
           An efficient way to share and learn together
         </h1>
@@ -18,7 +18,7 @@ const Home = () => {
             </button>
           </div>
         </Link>
-        <p className="text-xs mx-auto mt-1 text-minorTextBlack italic tracking-wider">
+        <p className="text-xs mx-auto mt-2 text-minorTextBlack italic tracking-wider">
           Connect &bull; Learn &bull; Grow
         </p>
       </div>
