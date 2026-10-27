@@ -13,12 +13,12 @@ const Home = () => {
         </h1>
         <Link to="/signUp" className="mx-auto mt-3.5">
           <div className="aura aura-xs rounded-2xl ">
-            <button className=" btn rounded-2xl ">
+            <button className=" btn rounded-2xl  text-buttonTextBlack">
               Get started for free <ArrowRight size={18} />
             </button>
           </div>
         </Link>
-        <p className="text-xs mx-auto mt-1 text-stone-700 italic tracking-wider">
+        <p className="text-xs mx-auto mt-1 text-minorTextBlack italic tracking-wider">
           Connect &bull; Learn &bull; Grow
         </p>
       </div>
