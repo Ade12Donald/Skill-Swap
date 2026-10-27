@@ -1,4 +1,25 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
+@theme {
+  --font-sans: "Inter", Roboto, sans-serif;
+  --font-heading: "Slabo 13px", "Segoe UI", Roboto, sans-serif;
+  --font-mono: "Instrument Serif ", Consolas, monospace;
+  /* dark theme color */
+  --color-bgBlack: #1d232a;
+  --color-mainTextBlack: #ecf9ff;
+  --color-minorTextBlack: #3c413c;
+  --color-buttonTextBlack: #e1e1e4;
+  --color-cardBlack: #161b1d;
+  --color-minorButtonBlack: #09090b;
+  --color-majorButtonBlack: #191e24;
+}
+
+@layer base {
+  body {
+    color: var(--color-mainTextBlack);
+    background-color: var(--color-bgBlack);
+  }
+}
+
 /* #1d232a */
