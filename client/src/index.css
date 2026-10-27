@@ -1,10 +1,30 @@
 @import "tailwindcss";
-@plugin "daisyui";
+@plugin "daisyui" {
+  themes: false;
+}
+
+/* light: applies by default */
+[data-theme="light"] {
+  --color-base-100: oklch(
+    92.8% 0.006 264.531
+  ); /* test color, swap for #A6A09B later */
+  --color-base-200: oklch(44.6% 0.043 257.281);
+  --color-base-300: oklch(72.3% 0.014 214.4);
+  --color-base-content: oklch(16.799% 0.00203 106.767);
+}
+
+/* dark: applies only when the toggle is checked, and is more specific so it wins */
+:root:has(input.theme-controller[value="dark"]:checked) {
+  --color-base-100: oklch(13% 0.028 261.692);
+  --color-base-200: oklch(55.4% 0.046 257.417);
+  --color-base-300: oklch(27.8% 0.033 256.848);
+  --color-base-content: #e5e7eb;
+}
 
 @theme {
   --font-sans: "Inter", Roboto, sans-serif;
   --font-heading: "Slabo 13px", "Segoe UI", Roboto, sans-serif;
-  --font-mono: "Instrument Serif ", Consolas, monospace;
+  --font-mono: "Instrument Serif", Consolas, monospace;
   /* dark theme color */
   --color-bgBlack: #1d232a;
   --color-mainTextBlack: #ecf9ff;
@@ -15,11 +35,8 @@
   --color-majorButtonBlack: #191e24;
 }
 
-@layer base {
-  body {
-    color: var(--color-mainTextBlack);
-    background-color: var(--color-bgBlack);
-  }
+.btn-ghost {
+  color: var(--btn-text);
 }
 
 /* #1d232a */
