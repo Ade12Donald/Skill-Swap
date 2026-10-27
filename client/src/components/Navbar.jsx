@@ -20,12 +20,14 @@ const Navbar = () => {
         <div>
           <NavLink to="/Login">
             <span>
-              <button className="btn btn-ghost rounded-2xl">Login</button>
+              <button className="btn btn-ghost rounded-2xl text-buttonTextBlack">
+                Login
+              </button>
             </span>
           </NavLink>
           <NavLink to="/Login">
             <span>
-              <button className="btn btn-ghost rounded-2xl">
+              <button className="btn btn-ghost rounded-2xl  text-buttonTextBlack">
                 Create an Account
               </button>
             </span>
