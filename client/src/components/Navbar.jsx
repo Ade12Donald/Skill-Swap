@@ -39,7 +39,7 @@ const Navbar = () => {
               </button>
             </span>
           </NavLink>
-          <NavLink to="/Login">
+          <NavLink to="/signUp">
             <span className="mx-.75">
               <button className="btn btn-ghost rounded-2xl  text-buttonTextBlack">
                 Create an Account
