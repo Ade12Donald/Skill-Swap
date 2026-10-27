@@ -1,7 +1,7 @@
 const HomeCard = () => {
   return (
     <div className="grid grid-cols-[repeat(auto-fit,minmax(385px,1fr))] justify-center gap-2">
-      <div className="card bg-cardBlack shadow-sm mx-auto w-96">
+      <div className="card bg-base-300  shadow-sm mx-auto w-96">
         <div className="card-body">
           <h2 className="card-title">CONNECT</h2>
           <p className="leading-5.5">
@@ -15,7 +15,7 @@ const HomeCard = () => {
           </div>
         </div>
       </div>
-      <div className="card bg-cardBlack shadow-sm mx-auto w-96">
+      <div className="card shadow-sm bg-base-300 mx-auto w-96">
         <div className="card-body">
           <h2 className="card-title ">LEARN</h2>
           <p className="leading-5.5">
@@ -29,7 +29,7 @@ const HomeCard = () => {
           </div>
         </div>
       </div>
-      <div className="card bg-cardBlack w-96 shadow-sm mx-auto">
+      <div className="card w-96 bg-base-300  shadow-sm mx-auto">
         <div className="card-body">
           <h2 className="card-title ">GROW</h2>
           <p className="leading-5.5">
@@ -43,7 +43,7 @@ const HomeCard = () => {
           </div>
         </div>
       </div>
-      <div className="card bg-cardBlack w-96 shadow-sm mx-auto">
+      <div className="card w-96 shadow-sm bg-base-300  mx-auto">
         <div className="card-body">
           <h2 className="card-title ">COLLABORATE</h2>
           <p className="leading-5.5">
@@ -57,7 +57,7 @@ const HomeCard = () => {
           </div>
         </div>
       </div>
-      <div className="card bg-cardBlack w-96 shadow-sm mx-auto">
+      <div className="card w-96 bg-base-300  shadow-sm mx-auto">
         <div className="card-body">
           <h2 className="card-title ">EXCHANGE</h2>
           <p className="leading-5.5">
