@@ -1,6 +1,20 @@
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router";
 
 const Navbar = () => {
+  const [theme, setTheme] = useState(
+    () => localStorage.getItem("theme") || "light",
+  );
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const handleThemeChange = (e) => {
+    setTheme(e.target.checked ? "dark" : "light");
+  };
+
   return (
     <>
       <nav className="mt-2 ml-2 flex">
@@ -38,8 +52,10 @@ const Navbar = () => {
         <label className="toggle text-base-content">
           <input
             type="checkbox"
-            value="synthwave"
+            value="dark"
             className="theme-controller"
+            checked={theme === "dark"}
+            onChange={handleThemeChange}
           />
 
           <svg
