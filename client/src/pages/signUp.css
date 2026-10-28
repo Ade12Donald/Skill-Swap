@@ -1,0 +1,11 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+input {
+  border-radius: 10px;
+  padding: 10px;
+}
+
+input:focus {
+  outline: 2px solid var(--color-base-content);
+}
