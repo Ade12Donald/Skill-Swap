@@ -9,7 +9,19 @@ const Home = () => {
     <div>
       <div className=" flex justify-center h-auto mt-20 mb-20 flex-col max-w-120 m-auto">
         <h1 className=" text-center font-medium font-sans text-4xl tracking-tight">
-          An efficient way to share and learn together
+          An efficient way to
+          <span>
+            <span className="text-rotate">
+              <span>
+                <span className="bg-teal-400 text-teal-800 px-2">GROW</span>
+                <span className="bg-red-400 text-red-800 px-2">LEVEL UP</span>
+                <span className="bg-blue-400 text-blue-800 px-2">
+                  Contribute
+                </span>
+              </span>
+            </span>
+          </span>
+          and learn together
         </h1>
         <Link to="/signUp" className="mx-auto mt-3.5">
           <div className="aura aura-xs rounded-2xl ">
