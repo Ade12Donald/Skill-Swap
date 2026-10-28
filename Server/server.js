@@ -2,6 +2,7 @@
 import express from "express";
 import morgan from "morgan";
 import mongoose from "mongoose";
+import cors from "cors";
 import "dotenv/config";
 
 //FILES IMPORT
@@ -19,11 +20,17 @@ const MONGO_URI = process.env.COMPASS_URI;
 //MIDDLEWARE
 app.use(express.json());
 app.use(
+  cors({
+    origin: "http://localhost:5173/", // your exact frontend address
+    credentials: true, // allow cookies (your JWT)
+  }),
+);
+app.use(
   morgan("combined", {
     stream: { write: (msg) => logger.info(msg.trim()) },
   }),
 );
-app.use("/user", userRoute);
+app.use("/api/user", userRoute);
 
 app.use((req, res) => {
   res.status(404).json({ ERROR: "PAGE NOT FOUND" });
