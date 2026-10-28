@@ -6,24 +6,45 @@ import { FaYahoo } from "react-icons/fa6";
 import { PiMicrosoftOutlookLogoFill } from "react-icons/pi";
 import { NavLink, useNavigate } from "react-router";
 import "./signUp.css";
+import { userSchema } from "../schemas/userSchema";
 
 const SignUp = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
-    Email: "",
+    email: "",
     age: "",
     password: "",
   });
+  const detailsSchema = userSchema.omit({
+    skillToTeach: true,
+    skillToLearn: true,
+  });
+
+  const [errors, setErrors] = useState({});
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-    navigate("/customize");
+
+    const result = detailsSchema.safeParse(formData);
+
+    if (!result.success) {
+      const found = {};
+      for (const issue of result.error.issues) {
+        const field = issue.path[0];
+        if (!found[field]) found[field] = issue.message;
+      }
+      return setErrors(found);
+    }
+
+    setErrors({});
+    navigate("/customize", { state: { formData: result.data } }); // send the cleaned copy
   };
+
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
   return (
     <div className="h-dvh flex content-center">
@@ -39,7 +60,11 @@ const SignUp = () => {
             <li className="step">DONE!!</li>
           </ul>
 
-          <form onSubmit={handleSubmit} className="flex flex-col gap-2 ">
+          <form
+            onSubmit={handleSubmit}
+            noValidate
+            className="flex flex-col gap-2 "
+          >
             <div className="flex gap-3">
               <div className="flex flex-col">
                 <label htmlFor="firstName" className="text-s">
@@ -56,6 +81,9 @@ const SignUp = () => {
                   onChange={(e) => handleChange(e)}
                   className="border rounded-l px-2.5 py-1 flex-1 "
                 />
+                {errors.firstName && (
+                  <p className="text-error text-sm">{errors.firstName}</p>
+                )}
               </div>
 
               <div className="flex flex-col">
@@ -73,6 +101,9 @@ const SignUp = () => {
                   required
                   className="border rounded-l px-2.5 py-1 flex-1"
                 />
+                {errors.lastName && (
+                  <p className="text-error text-sm">{errors.lastName}</p>
+                )}
               </div>
             </div>
             <div className="flex flex-col">
@@ -82,14 +113,17 @@ const SignUp = () => {
               <input
                 type="email"
                 placeholder="e.g johnSmith@gmail.com"
-                name="Email"
+                name="email"
                 id="email"
-                value={formData.Email}
+                value={formData.email}
                 onChange={(e) => handleChange(e)}
                 className="border rounded-l px-2.5 py-1
                 flex-1"
                 required
               />
+              {errors.email && (
+                <p className="text-error text-sm">{errors.email}</p>
+              )}
             </div>
             <div className="flex flex-col">
               <label htmlFor="age" className="my-auto text-[1rem] mr-2">
@@ -106,6 +140,7 @@ const SignUp = () => {
               w-18.75"
                 required
               />
+              {errors.age && <p className="text-error text-sm">{errors.age}</p>}
             </div>
             <div className="flex flex-col justify-between">
               <label htmlFor="password" className="my-auto text-[1rem] mr-2">
@@ -121,38 +156,13 @@ const SignUp = () => {
                 placeholder="Enter your password"
                 required
               />
+              {errors.password && (
+                <p className="text-error text-sm">{errors.password}</p>
+              )}
             </div>
-            {/* <div>
-              <label htmlFor="skills" className="my-auto text-[1rem] mr-2">
-                Skills to Offer:{" "}
-              </label>
-              <input
-                className="input input-bordered flex-1"
-                placeholder="e.g. react"
-                value={4}
-              />
-              <select name="level" id="skills">
-                <option value="Intermediate">Intermediate</option>
-                <option value="Advanced">Advanced</option>
-              </select>
-            </div>
-            <div>
-              <label htmlFor="skills" className="my-auto text-[1rem] mr-2">
-                Skills to Learn:{" "}
-              </label>
-              <input
-                className="input input-bordered flex-1"
-                placeholder="e.g. react"
-                value={4}
-              />
-              <select name="level" id="skills">
-                <option value="Intermediate">Intermediate</option>
-                <option value="Advanced">Advanced</option>
-              </select>
-            </div> */}
             <div className="card-actions justify-center mt-2">
               <button type="submit" className="btn btn-wide bg-base-200">
-                Sign In
+                Next
               </button>
             </div>
             <p className="text-center">
