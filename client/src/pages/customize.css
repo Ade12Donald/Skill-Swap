@@ -1,0 +1,15 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: false;
+}
+
+select {
+  border-radius: 1rem;
+  padding: 10px;
+  border: 2px solid var(--color-base-content);
+}
+
+select option {
+  background-color: var(--color-base-100);
+  color: var(--color-base-content);
+}
