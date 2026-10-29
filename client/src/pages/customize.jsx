@@ -85,10 +85,7 @@ const Customize = () => {
       console.log(err); // the whole error
       console.log(err.response?.status, err.response?.data);
       setErrors({
-        form:
-          err.response?.data?.message ||
-          err.response?.data?.error ||
-          err.message, // e.g. "Network Error" or "Request failed with status code 404"
+        form: err.response?.data?.message || "Something went wrong",
       });
     } finally {
       setLoading(false);
