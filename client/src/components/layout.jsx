@@ -1,13 +1,18 @@
+// Layout.jsx
+import { Suspense } from "react";
 import { Outlet } from "react-router";
-import Navbar from "./Navbar";
+import Navbar from "./Navbar.jsx";
+import Loader from "./Loader.jsx";
 
-const Layout = () => {
+export default function Layout() {
   return (
     <>
       <Navbar />
-      <Outlet />
+      <main>
+        <Suspense fallback={<Loader />}>
+          <Outlet />
+        </Suspense>
+      </main>
     </>
   );
-};
-
-export default Layout;
+}
