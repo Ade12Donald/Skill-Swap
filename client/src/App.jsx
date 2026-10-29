@@ -1,23 +1,24 @@
-import { lazy, Suspense } from "react";
+import { lazy } from "react";
 import { Routes, Route } from "react-router";
-import Loader from "./components/Loader.jsx";
 import Layout from "./components/Layout.jsx";
 
 const Home = lazy(() => import("./pages/Home.jsx"));
 const SignUp = lazy(() => import("./pages/signUp.jsx"));
-const Customize = lazy(() => import("./pages/customize.jsx"));
+const Customize = lazy(() => import("./pages/Customize.jsx"));
+const LogIn = lazy(() => import("./pages/login.jsx"));
+const Dashboard = lazy(() => import("./pages/dashboard.jsx"));
 
 function App() {
   return (
-    <Suspense fallback={<Loader fullScreen />}>
-      <Routes>
-        <Route element={<Layout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/signUp" element={<SignUp />} />
-          <Route path="/customize" element={<Customize />} />
-        </Route>
-      </Routes>
-    </Suspense>
+    <Routes>
+      <Route element={<Layout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/customize" element={<Customize />} />
+        <Route path="/login" element={<LogIn />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Route>
+    </Routes>
   );
 }
 
