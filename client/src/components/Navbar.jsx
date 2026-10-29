@@ -15,6 +15,10 @@ const navLinks = {
     { to: "/connections", label: "Connections" },
     { to: "/inbox", label: "Inbox" },
   ],
+  "/profile": [
+    { to: "/", label: "Home" },
+    { to: "/dashboard", label: "Dashboard" },
+  ],
 };
 
 const defaultLinks = [{ to: "/", label: "Home" }];
@@ -126,13 +130,7 @@ const Navbar = () => {
           )}
         </div>
         <span className="ml-2">
-          {isDashboard && (
-            <Avatar
-              photo={user.photo}
-              firstName={user.firstName}
-              lastName={user.lastName}
-            />
-          )}
+          {isDashboard && user && <Avatar {...user} />}
         </span>
       </nav>
     </div>
