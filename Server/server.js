@@ -18,13 +18,13 @@ const PORT = process.env.PORT;
 const MONGO_URI = process.env.COMPASS_URI;
 
 //MIDDLEWARE
-app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:5173/", // your exact frontend address
+    origin: "http://localhost:5173", // your exact frontend address
     credentials: true, // allow cookies (your JWT)
   }),
 );
+app.use(express.json());
 app.use(
   morgan("combined", {
     stream: { write: (msg) => logger.info(msg.trim()) },
