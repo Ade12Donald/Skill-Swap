@@ -2,6 +2,9 @@ import bcrypt from "bcrypt";
 import userModel from "../models/userModel.js";
 import { AppError } from "../utils/errorHandling.js";
 import logger from "../utils/logger.js";
+import uploadToCloudinary from "../utils/uploadToCloudinary.js";
+import cloudinary from "../config/cloudinary.js";
+import { JWTsign } from "../utils/token.js";
 
 export const createUser = async (req, res, next) => {
   try {
@@ -27,6 +30,8 @@ export const createUser = async (req, res, next) => {
 
     const user = await userModel.create(req.body);
 
+    JWTsign(user, res);
+
     logger.info("User registered successfully", { userId: String(user._id) });
     res.status(201).json({
       status: "successful",
@@ -48,7 +53,8 @@ export const loginUser = async (req, res, next) => {
 
     const isMatch = await bcrypt.compare(password, userExist.password);
     if (!isMatch) throw new AppError("Invalid email or password", 400);
-    throw new AppError("Password Incorrect", 400);
+
+    JWTsign(userExist, res);
 
     res.status(200).json({
       status: "successful",
@@ -61,7 +67,7 @@ export const loginUser = async (req, res, next) => {
   }
 };
 
-export const getUser = async (req, res) => {
+export const getUser = async (req, res, next) => {
   try {
     const { id } = req.user;
 
@@ -79,7 +85,7 @@ export const getUser = async (req, res) => {
   }
 };
 
-export const updateUser = async (req, res) => {
+export const updateUser = async (req, res, next) => {
   try {
     const { id } = req.user;
     const {
@@ -143,7 +149,7 @@ export const updateUser = async (req, res) => {
   }
 };
 
-export const deleteUser = async (req, res) => {
+export const deleteUser = async (req, res, next) => {
   try {
     const { id } = req.user;
     const user = await userModel.findByIdAndDelete(id);
@@ -156,6 +162,61 @@ export const deleteUser = async (req, res) => {
     });
   } catch (error) {
     logger.error(error);
+    next(error);
+  }
+};
+
+export const updateProfilePicture = async (req, res, next) => {
+  try {
+    const { ID: userId } = req.user;
+    if (!req.file) throw new AppError("Please Upload an Image", 400);
+
+    const result = await uploadToCloudinary(req.file.buffer);
+
+    const userExist = await userModel.findById(userId);
+    if (!userExist) {
+      cloudinary.uploader.destroy(result.public.id);
+      throw new AppError("User Not Found", 404);
+    }
+    const oldPublicId = userExist.profilePicture?.publicId;
+    const updatedUser = await userModel.findByIdAndUpdate(
+      userId,
+      {
+        $set: {
+          "profilePicture.url": result.secure_url,
+          "profilePicture.publicId": result.public_id,
+        },
+      },
+      { new: true },
+    );
+
+    if (oldPublicId) {
+      try {
+        await cloudinary.uploader.destroy(oldPublicId);
+      } catch (error) {
+        console.log("Old Image Detection failed: ", error);
+      }
+    }
+    return res.status(200).json({
+      message: "Profile picture updated successfully",
+      user: updatedUser,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getProfilePicture = async (req, res, next) => {
+  try {
+    const { ID: userId } = req.user;
+    const userData = await userModel.findById(userId);
+
+    const profilePicture = userData.profilePicture.url;
+    res.status(200).json({
+      message: "profile Picture Fetched Successfully",
+      profilePicture,
+    });
+  } catch (error) {
     next(error);
   }
 };
