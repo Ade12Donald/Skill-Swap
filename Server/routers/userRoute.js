@@ -13,7 +13,7 @@ import loginSchema from "../schema/loginSchema.js";
 const route = Router();
 
 route.post("/create", validate(userSchema), createUser);
-route.get("/login", validate(loginSchema), loginUser);
+route.post("/login", validate(loginSchema), loginUser);
 route.get("/get", getUser);
 route.patch("/update", validate(userSchema.partial()), updateUser);
 route.delete("delete", deleteUser);
