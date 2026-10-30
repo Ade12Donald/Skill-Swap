@@ -8,6 +8,7 @@ import "dotenv/config";
 //FILES IMPORT
 import logger from "./utils/logger.js";
 import userRoute from "./routers/userRoute.js";
+import postRoute from "./routers/userRoute.js";
 import { errorMiddleware } from "./middleware/errorHandler.js";
 
 //CONFIGURATION
@@ -31,6 +32,7 @@ app.use(
   }),
 );
 app.use("/api/user", userRoute);
+app.use("/api/post", postRoute);
 
 app.use((req, res) => {
   res.status(404).json({ ERROR: "PAGE NOT FOUND" });
@@ -45,7 +47,7 @@ mongoose
     logger.info("MONGODB CONNECTED SUCCESSFULLY");
     app.listen(PORT, () => logger.info(`SERVER IS RUNNING ON PORT ${PORT}`));
   })
-  .catch((error) => {
+  .catch((err) => {
     logger.error("MongoDB connection failed", {
       error: err.message,
       stack: err.stack,
