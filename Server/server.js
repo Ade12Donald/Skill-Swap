@@ -3,6 +3,7 @@ import express from "express";
 import morgan from "morgan";
 import mongoose from "mongoose";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import "dotenv/config";
 
 //FILES IMPORT
@@ -25,6 +26,7 @@ app.use(
     credentials: true, // allow cookies (your JWT)
   }),
 );
+app.use(cookieParser());
 app.use(express.json());
 app.use(
   morgan("combined", {
