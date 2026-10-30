@@ -80,7 +80,7 @@ const Customize = () => {
         { ...formData, ...result.data },
         { withCredentials: true },
       );
-      navigate("/login", { replace: true });
+      navigate("/dashboard", { replace: true });
     } catch (err) {
       console.log(err); // the whole error
       console.log(err.response?.status, err.response?.data);
@@ -262,7 +262,7 @@ const Customize = () => {
                 {loading ? (
                   <span className="loading loading-spinner"></span>
                 ) : (
-                  "Sign In"
+                  "Sign Up"
                 )}
               </button>
             </div>
