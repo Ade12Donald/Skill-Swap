@@ -1,8 +1,20 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 
+const profileSchema = new mongoose.Schema({
+  url: {
+    type: String,
+    default: "",
+  },
+  publicId: {
+    type: String,
+    default: "",
+  },
+});
+
 const userSchema = new mongoose.Schema(
   {
+    profilePicture: { type: profileSchema, default: () => ({}) },
     firstName: {
       type: String,
       trim: true,
