@@ -46,8 +46,9 @@ export const loginUser = async (req, res, next) => {
 
     if (!userExist) throw new AppError("User not Found", 404);
 
-    if (!bcrypt.compare(password, userExist.password))
-      throw new AppError("Password Incorrect", 400);
+    const isMatch = await bcrypt.compare(password, userExist.password);
+    if (!isMatch) throw new AppError("Invalid email or password", 400);
+    throw new AppError("Password Incorrect", 400);
 
     res.status(200).json({
       status: "successful",
