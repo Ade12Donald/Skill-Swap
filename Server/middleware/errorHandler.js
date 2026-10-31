@@ -1,5 +1,6 @@
 import { ZodError } from "zod";
 import { AppError } from "../utils/errorHandling.js";
+import logger from "../utils/logger.js";
 
 export const errorMiddleware = (err, req, res, next) => {
   if (err instanceof ZodError) {
@@ -14,7 +15,7 @@ export const errorMiddleware = (err, req, res, next) => {
       ERROR: err.message,
     });
   } else if (err.code === 11000) {
-    console.log(err);
+    logger.error(err);
     return res.status(400).json({
       field: Object.keys(err.keyValue)[0],
       message: `${Object.keys(err.keyValue)[0]} already exist`,
