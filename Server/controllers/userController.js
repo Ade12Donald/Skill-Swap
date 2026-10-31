@@ -168,6 +168,7 @@ export const deleteUser = async (req, res, next) => {
 
 export const updateProfilePicture = async (req, res, next) => {
   try {
+    console.log("req.user:", req.user);
     const { ID: userId } = req.user;
     if (!req.file) throw new AppError("Please Upload an Image", 400);
 
@@ -175,7 +176,7 @@ export const updateProfilePicture = async (req, res, next) => {
 
     const userExist = await userModel.findById(userId);
     if (!userExist) {
-      cloudinary.uploader.destroy(result.public.id);
+      cloudinary.uploader.destroy(result.public_id);
       throw new AppError("User Not Found", 404);
     }
     const oldPublicId = userExist.profilePicture?.publicId;
@@ -202,6 +203,7 @@ export const updateProfilePicture = async (req, res, next) => {
       user: updatedUser,
     });
   } catch (error) {
+    logger.error(error);
     next(error);
   }
 };
