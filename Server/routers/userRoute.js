@@ -5,11 +5,12 @@ import {
   getUser,
   loginUser,
   updateUser,
+  updateProfilePicture,
+  getProfilePicture,
 } from "../controllers/userController.js";
 import { validate } from "../middleware/validateSchema.js";
 import { userSchema } from "../schema/userSchema.js";
 import upload from "../middleware/upload.js";
-import { updateProfilePicture } from "../controllers/userController.js";
 import loginSchema from "../schema/loginSchema.js";
 import authMiddleware from "../middleware/authMiddleware.js";
 
